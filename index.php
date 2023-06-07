@@ -22,6 +22,7 @@
 
 
     // Získání seznamu souborů v dané složce
+    //Načte všechny soubory co jsou ve složce pictures v tomto adresáři, musí být v tomto adresáři! Tedy ve stejném adresáři kde je php script.
     $obrazky = glob(dirname(realpath(__FILE__)).'\\pictures\\' . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
     // Získání aktuálního indexu obrázku z URL parametru
     $aktualniIndex = isset($_GET['index']) ? intval($_GET['index']) : 0;
@@ -36,7 +37,7 @@
 
     $nasledujiciIndex = ($aktualniIndex < $pocetObrazku - 1) ? $aktualniIndex + 1 : 0;
 
-    // Odstranění všeho před slovem "pictures" v cestě
+    // Odstranění všeho před slovem "pictures" v cestě, nutné pro načtení, jinak problém s "lokální cestou" prohlížeč to zablokuje
     $novySoubor = substr($obrazky[$aktualniIndex], strpos($obrazky[$aktualniIndex], 'pictures'));
     // Zobrazení aktuálního obrázku
     echo '<img src="' . htmlspecialchars($novySoubor) . '" alt="Obrázek"><br>';
